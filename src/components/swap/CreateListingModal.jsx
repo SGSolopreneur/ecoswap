@@ -89,17 +89,27 @@ export default function CreateListingModal({ onClose, onCreated }) {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className={labelClass}>Category</label>
-                <select className={inputClass} value={form.category} onChange={e => set('category', e.target.value)}>
-                  {CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
-                </select>
+                <MobileSelect
+                  value={form.category}
+                  onValueChange={v => set('category', v)}
+                  options={CATEGORIES}
+                  placeholder="Category"
+                  className={inputClass}
+                />
               </div>
               <div>
                 <label className={labelClass}>Condition</label>
-                <select className={inputClass} value={form.condition} onChange={e => set('condition', e.target.value)}>
-                  <option value="like_new">Like New</option>
-                  <option value="good">Good</option>
-                  <option value="fair">Fair</option>
-                </select>
+                <MobileSelect
+                  value={form.condition}
+                  onValueChange={v => set('condition', v)}
+                  options={[
+                    { value: 'like_new', label: 'Like New' },
+                    { value: 'good', label: 'Good' },
+                    { value: 'fair', label: 'Fair' },
+                  ]}
+                  placeholder="Condition"
+                  className={inputClass}
+                />
               </div>
             </div>
 
