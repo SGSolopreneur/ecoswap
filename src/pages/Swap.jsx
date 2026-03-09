@@ -79,8 +79,8 @@ export default function Swap() {
             <div className={`w-9 h-9 rounded-xl flex items-center justify-center mb-1 ${stat.color}`}>
               <stat.icon className="w-4 h-4" />
             </div>
-            <span className="text-2xl font-bold text-gray-900">{count}</span>
-            <span className="text-xs text-gray-400">{label}</span>
+            <span className="text-2xl font-bold text-gray-900">{stat.count}</span>
+            <span className="text-xs text-gray-400">{stat.label}</span>
           </div>
         ))}
       </div>
