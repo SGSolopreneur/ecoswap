@@ -51,6 +51,7 @@ import Home from './pages/Home';
 import Browse from './pages/Browse';
 import Favorites from './pages/Favorites';
 import Calculator from './pages/Calculator';
+import Compare from './pages/Compare';
 import __Layout from './Layout.jsx';
 
 
@@ -59,6 +60,7 @@ export const PAGES = {
     "Browse": Browse,
     "Favorites": Favorites,
     "Calculator": Calculator,
+    "Compare": Compare,
 }
 
 export const pagesConfig = {
