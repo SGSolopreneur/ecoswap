@@ -62,6 +62,9 @@ export default function Swap() {
     onSettled: () => queryClient.invalidateQueries({ queryKey: ['swap_listings'] }),
   });
 
+  const handleRefresh = useCallback(() =>
+    queryClient.refetchQueries({ queryKey: ['swap_listings'] }), [queryClient]);
+
   const requestLocation = () => {
     if (!navigator.geolocation) return;
     setLocating(true);
