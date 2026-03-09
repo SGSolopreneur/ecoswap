@@ -50,6 +50,7 @@
 import Home from './pages/Home';
 import Browse from './pages/Browse';
 import Favorites from './pages/Favorites';
+import Calculator from './pages/Calculator';
 import __Layout from './Layout.jsx';
 
 
@@ -57,6 +58,7 @@ export const PAGES = {
     "Home": Home,
     "Browse": Browse,
     "Favorites": Favorites,
+    "Calculator": Calculator,
 }
 
 export const pagesConfig = {
