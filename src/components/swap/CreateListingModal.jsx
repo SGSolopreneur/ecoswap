@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Upload, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
+import { SINGAPORE_AREA_NAMES } from './singaporeLocations';
 
 const CATEGORIES = [
   { value: 'cleaning', label: 'Cleaning' }, { value: 'personal_care', label: 'Personal Care' },
