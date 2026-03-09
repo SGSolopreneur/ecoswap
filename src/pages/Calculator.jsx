@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Calculator, RotateCcw } from 'lucide-react';
+import { Calculator as CalculatorIcon, RotateCcw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ProductInput from '../components/calculator/ProductInput';
 import SavingsSummary from '../components/calculator/SavingsSummary';
