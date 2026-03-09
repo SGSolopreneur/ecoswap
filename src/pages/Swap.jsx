@@ -52,7 +52,14 @@ export default function Swap() {
 
   const markTakenMutation = useMutation({
     mutationFn: (id) => base44.entities.SwapListing.update(id, { status: 'taken' }),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['swap_listings'] }),
+    onMutate: async (id) => {
+      await queryClient.cancelQueries({ queryKey: ['swap_listings'] });
+      const prev = queryClient.getQueryData(['swap_listings']) || [];
+      queryClient.setQueryData(['swap_listings'], prev.map(l => l.id === id ? { ...l, status: 'taken' } : l));
+      return { prev };
+    },
+    onError: (_e, _v, ctx) => queryClient.setQueryData(['swap_listings'], ctx.prev),
+    onSettled: () => queryClient.invalidateQueries({ queryKey: ['swap_listings'] }),
   });
 
   const requestLocation = () => {
