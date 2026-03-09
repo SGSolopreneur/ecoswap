@@ -24,6 +24,7 @@ export default function ProductDetail({ product, isFavorite, onToggleFavorite, o
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
           onClick={(e) => e.stopPropagation()}
           className="bg-white rounded-t-3xl sm:rounded-2xl w-full sm:max-w-lg max-h-[90vh] overflow-y-auto"
+          style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
         >
           {/* Header Image */}
           <div className="relative h-56 bg-gradient-to-br from-[#B7C4A1]/20 to-[#1B4332]/10 overflow-hidden">
