@@ -214,7 +214,7 @@ export default function Swap() {
 
       {/* List view */}
       {viewMode === 'list' && (
-        <PullToRefresh onRefresh={handleRefresh}><>
+        <PullToRefresh onRefresh={handleRefresh}>
           {isLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {Array(6).fill(0).map((_, i) => (
