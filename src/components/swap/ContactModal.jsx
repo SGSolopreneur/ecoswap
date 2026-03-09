@@ -19,7 +19,8 @@ export default function ContactModal({ listing, onClose }) {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}
           onClick={e => e.stopPropagation()}
-          className="bg-white rounded-2xl w-full max-w-sm p-6 shadow-xl"
+          className="bg-white rounded-2xl w-full max-w-sm shadow-xl"
+          style={{ padding: '1.5rem', paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom))' }}
         >
           <div className="flex items-center justify-between mb-5">
             <h3 className="font-bold text-gray-900 text-lg">Contact Lister</h3>
