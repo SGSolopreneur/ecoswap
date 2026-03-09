@@ -155,7 +155,7 @@ export default function Calculator() {
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-2">
           <div className="w-10 h-10 bg-[#1B4332] rounded-xl flex items-center justify-center">
-            <Calculator className="w-5 h-5 text-[#B7C4A1]" />
+            <CalculatorIcon className="w-5 h-5 text-[#B7C4A1]" />
           </div>
           <h1 className="text-3xl font-bold text-gray-900">CO₂ Savings Calculator</h1>
         </div>
