@@ -1,7 +1,7 @@
 import React from 'react';
-import { Search, SlidersHorizontal, X } from 'lucide-react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Search, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import MobileSelect from '@/components/ui/MobileSelect';
 
 const categories = [
   { value: 'all', label: 'All Categories' },
@@ -46,28 +46,22 @@ export default function FilterBar({ filters, setFilters, searchQuery, setSearchQ
         </div>
 
         {/* Category */}
-        <Select value={filters.category} onValueChange={(v) => setFilters({ ...filters, category: v })}>
-          <SelectTrigger className="w-full sm:w-44 rounded-xl border-gray-100 bg-gray-50">
-            <SelectValue placeholder="Category" />
-          </SelectTrigger>
-          <SelectContent>
-            {categories.map(c => (
-              <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <MobileSelect
+          value={filters.category}
+          onValueChange={(v) => setFilters({ ...filters, category: v })}
+          options={categories}
+          placeholder="Category"
+          className="w-full sm:w-44"
+        />
 
         {/* Price */}
-        <Select value={filters.priceRange} onValueChange={(v) => setFilters({ ...filters, priceRange: v })}>
-          <SelectTrigger className="w-full sm:w-36 rounded-xl border-gray-100 bg-gray-50">
-            <SelectValue placeholder="Price" />
-          </SelectTrigger>
-          <SelectContent>
-            {priceOptions.map(p => (
-              <SelectItem key={p.value} value={p.value}>{p.label}</SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <MobileSelect
+          value={filters.priceRange}
+          onValueChange={(v) => setFilters({ ...filters, priceRange: v })}
+          options={priceOptions}
+          placeholder="Price"
+          className="w-full sm:w-36"
+        />
 
         {hasFilters && (
           <Button variant="ghost" size="sm" onClick={clearAll} className="text-gray-500 hover:text-gray-900 shrink-0">
