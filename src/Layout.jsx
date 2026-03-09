@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Leaf, Home, Search, Heart, Menu, X, Calculator } from 'lucide-react';
+import { Leaf, Home, Search, Heart, Menu, X, Calculator, GitCompare } from 'lucide-react';
 
 const navItems = [
   { name: 'Home', page: 'Home', icon: Home },
   { name: 'Browse', page: 'Browse', icon: Search },
+  { name: 'Compare', page: 'Compare', icon: GitCompare },
   { name: 'Calculator', page: 'Calculator', icon: Calculator },
   { name: 'Favorites', page: 'Favorites', icon: Heart },
 ];
