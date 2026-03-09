@@ -74,10 +74,10 @@ export default function Swap() {
           { icon: Gift, label: 'Items to Donate', count: listings.filter(l => l.listing_type === 'donation' && l.status === 'available').length, color: 'text-[#1B4332] bg-[#F0F7F4]' },
           { icon: ArrowRightLeft, label: 'Swap Offers', count: listings.filter(l => l.listing_type === 'swap' && l.status === 'available').length, color: 'text-purple-700 bg-purple-50' },
           { icon: Recycle, label: 'Items Rehomed', count: listings.filter(l => l.status === 'taken').length, color: 'text-amber-700 bg-amber-50' },
-        ].map(({ icon: Icon, label, count, color }) => (
-          <div key={label} className="bg-white rounded-2xl border border-gray-100 p-4 flex flex-col items-center text-center gap-1">
-            <div className={`w-9 h-9 rounded-xl flex items-center justify-center mb-1 ${color}`}>
-              <Icon className="w-4 h-4" />
+        ].map((stat) => (
+          <div key={stat.label} className="bg-white rounded-2xl border border-gray-100 p-4 flex flex-col items-center text-center gap-1">
+            <div className={`w-9 h-9 rounded-xl flex items-center justify-center mb-1 ${stat.color}`}>
+              <stat.icon className="w-4 h-4" />
             </div>
             <span className="text-2xl font-bold text-gray-900">{count}</span>
             <span className="text-xs text-gray-400">{label}</span>
