@@ -258,7 +258,7 @@ export default function Swap() {
               )}
             </div>
           )}
-        </>
+        </></PullToRefresh>
       )}
 
       {showCreate && <CreateListingModal onClose={() => setShowCreate(false)} onCreated={() => queryClient.invalidateQueries({ queryKey: ['swap_listings'] })} />}
