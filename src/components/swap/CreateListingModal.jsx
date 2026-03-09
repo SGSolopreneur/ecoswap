@@ -114,8 +114,13 @@ export default function CreateListingModal({ onClose, onCreated }) {
             )}
 
             <div>
-              <label className={labelClass}>Location</label>
-              <input className={inputClass} placeholder="City or neighbourhood" value={form.location} onChange={e => set('location', e.target.value)} />
+              <label className={labelClass}>Location (Singapore)</label>
+              <select className={inputClass} value={form.location} onChange={e => set('location', e.target.value)}>
+                <option value="">Select your area…</option>
+                {SINGAPORE_AREA_NAMES.map(area => (
+                  <option key={area} value={area}>{area}</option>
+                ))}
+              </select>
             </div>
 
             <div>
