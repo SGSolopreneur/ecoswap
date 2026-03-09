@@ -4,6 +4,7 @@ import { X, Upload, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { base44 } from '@/api/base44Client';
 import { SINGAPORE_AREA_NAMES } from './singaporeLocations';
+import MobileSelect from '@/components/ui/MobileSelect';
 
 const CATEGORIES = [
   { value: 'cleaning', label: 'Cleaning' }, { value: 'personal_care', label: 'Personal Care' },
