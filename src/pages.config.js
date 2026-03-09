@@ -53,6 +53,7 @@ import Compare from './pages/Compare';
 import Favorites from './pages/Favorites';
 import Home from './pages/Home';
 import Swap from './pages/Swap';
+import Settings from './pages/Settings';
 import __Layout from './Layout.jsx';
 
 
@@ -63,6 +64,7 @@ export const PAGES = {
     "Favorites": Favorites,
     "Home": Home,
     "Swap": Swap,
+    "Settings": Settings,
 }
 
 export const pagesConfig = {

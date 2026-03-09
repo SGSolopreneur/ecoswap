@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { base44 } from '@/api/base44Client';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import ProductCard from '../components/products/ProductCard';
 import ProductDetail from '../components/products/ProductDetail';
 import { Link } from 'react-router-dom';
@@ -25,18 +25,34 @@ export default function Favorites() {
 
   const favoriteIds = useMemo(() => new Set(favorites.map(f => f.product_id)), [favorites]);
 
-  const favoriteProducts = useMemo(() => {
-    return products.filter(p => favoriteIds.has(p.id));
-  }, [products, favoriteIds]);
+  const favoriteProducts = useMemo(() => products.filter(p => favoriteIds.has(p.id)), [products, favoriteIds]);
 
-  const toggleFavorite = async (productId) => {
+  const toggleFavoriteMutation = useMutation({
+    mutationFn: ({ action, favoriteId, productId }) =>
+      action === 'remove'
+        ? base44.entities.Favorite.delete(favoriteId)
+        : base44.entities.Favorite.create({ product_id: productId }),
+    onMutate: async ({ action, productId }) => {
+      await queryClient.cancelQueries({ queryKey: ['favorites'] });
+      const prev = queryClient.getQueryData(['favorites']) || [];
+      queryClient.setQueryData(['favorites'],
+        action === 'remove'
+          ? prev.filter(f => f.product_id !== productId)
+          : [...prev, { product_id: productId, id: 'opt-' + Date.now() }]
+      );
+      return { prev };
+    },
+    onError: (_e, _v, ctx) => queryClient.setQueryData(['favorites'], ctx.prev),
+    onSettled: () => queryClient.invalidateQueries({ queryKey: ['favorites'] }),
+  });
+
+  const toggleFavorite = (productId) => {
     const existing = favorites.find(f => f.product_id === productId);
-    if (existing) {
-      await base44.entities.Favorite.delete(existing.id);
-    } else {
-      await base44.entities.Favorite.create({ product_id: productId });
-    }
-    queryClient.invalidateQueries({ queryKey: ['favorites'] });
+    toggleFavoriteMutation.mutate(
+      existing
+        ? { action: 'remove', favoriteId: existing.id, productId }
+        : { action: 'add', productId }
+    );
   };
 
   const isLoading = productsLoading || favoritesLoading;
@@ -60,11 +76,7 @@ export default function Favorites() {
           ))}
         </div>
       ) : favoriteProducts.length === 0 ? (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center py-20"
-        >
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center py-20">
           <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
             <Leaf className="w-12 h-12 text-gray-300" />
           </div>

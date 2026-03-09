@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
-import { Leaf, Home, Search, Heart, Menu, X, Calculator, GitCompare, Recycle } from 'lucide-react';
+import { Leaf, Home, Search, Heart, Calculator, GitCompare, Recycle, Settings, ChevronLeft } from 'lucide-react';
 
-const navItems = [
+const TOP_NAV = [
   { name: 'Home', page: 'Home', icon: Home },
   { name: 'Browse', page: 'Browse', icon: Search },
   { name: 'Compare', page: 'Compare', icon: GitCompare },
@@ -12,89 +12,101 @@ const navItems = [
   { name: 'Favorites', page: 'Favorites', icon: Heart },
 ];
 
+const BOTTOM_NAV = [
+  { name: 'Home', page: 'Home', icon: Home },
+  { name: 'Browse', page: 'Browse', icon: Search },
+  { name: 'Swap', page: 'Swap', icon: Recycle },
+  { name: 'Calculator', page: 'Calculator', icon: Calculator },
+];
+
+const SUB_PAGES = ['Browse', 'Compare', 'Calculator', 'Swap', 'Favorites', 'Settings'];
+
 export default function Layout({ children, currentPageName }) {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const navigate = useNavigate();
+  const isSubPage = SUB_PAGES.includes(currentPageName);
+
+  // Sync with system dark mode preference
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    const apply = (e) => document.documentElement.classList.toggle('dark', e.matches);
+    apply(mq);
+    mq.addEventListener('change', apply);
+    return () => mq.removeEventListener('change', apply);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#FAFAF8]">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         * { font-family: 'Inter', sans-serif; }
-        body { background: #FAFAF8; }
+        body { background: #FAFAF8; overscroll-behavior: none; }
+        button, a, [role="button"] { user-select: none; -webkit-user-select: none; }
       `}</style>
 
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-gray-100">
+      <header
+        className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-gray-100"
+        style={{ paddingTop: 'env(safe-area-inset-top)' }}
+      >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <Link to={createPageUrl('Home')} className="flex items-center gap-2.5">
-            <div className="w-9 h-9 bg-[#1B4332] rounded-xl flex items-center justify-center">
-              <Leaf className="w-5 h-5 text-[#B7C4A1]" />
-            </div>
-            <span className="text-lg font-bold text-gray-900 tracking-tight">EcoSwap</span>
-          </Link>
+          {/* Left: back button (mobile sub-pages) + logo */}
+          <div className="flex items-center gap-1">
+            {isSubPage && (
+              <button
+                onClick={() => navigate(-1)}
+                className="sm:hidden w-9 h-9 rounded-xl flex items-center justify-center hover:bg-gray-100 transition-colors"
+              >
+                <ChevronLeft className="w-5 h-5 text-gray-600" />
+              </button>
+            )}
+            <Link to={createPageUrl('Home')} className="flex items-center gap-2.5">
+              <div className="w-9 h-9 bg-[#1B4332] rounded-xl flex items-center justify-center">
+                <Leaf className="w-5 h-5 text-[#B7C4A1]" />
+              </div>
+              <span className="text-lg font-bold text-gray-900 tracking-tight">EcoSwap</span>
+            </Link>
+          </div>
 
-          {/* Desktop Nav */}
+          {/* Desktop nav */}
           <nav className="hidden sm:flex items-center gap-1">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = currentPageName === item.page;
+            {TOP_NAV.map(({ name, page, icon: Icon }) => {
+              const isActive = currentPageName === page;
               return (
                 <Link
-                  key={item.page}
-                  to={createPageUrl(item.page)}
+                  key={page}
+                  to={createPageUrl(page)}
                   className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                    isActive
-                      ? 'bg-[#1B4332] text-white'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                    isActive ? 'bg-[#1B4332] text-white' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
-                  {item.name}
+                  {name}
                 </Link>
               );
             })}
           </nav>
 
-          {/* Mobile menu button */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="sm:hidden w-10 h-10 rounded-xl flex items-center justify-center hover:bg-gray-100 transition-colors"
+          {/* Settings icon (always visible) */}
+          <Link
+            to={createPageUrl('Settings')}
+            className={`w-9 h-9 rounded-xl flex items-center justify-center transition-colors ${
+              currentPageName === 'Settings' ? 'bg-[#1B4332] text-white' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-700'
+            }`}
           >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+            <Settings className="w-4 h-4" />
+          </Link>
         </div>
-
-        {/* Mobile Nav */}
-        {mobileOpen && (
-          <div className="sm:hidden border-t border-gray-100 bg-white/95 backdrop-blur-xl px-4 py-3 space-y-1">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = currentPageName === item.page;
-              return (
-                <Link
-                  key={item.page}
-                  to={createPageUrl(item.page)}
-                  onClick={() => setMobileOpen(false)}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-                    isActive
-                      ? 'bg-[#1B4332] text-white'
-                      : 'text-gray-600 hover:bg-gray-100'
-                  }`}
-                >
-                  <Icon className="w-4 h-4" />
-                  {item.name}
-                </Link>
-              );
-            })}
-          </div>
-        )}
       </header>
 
       {/* Main */}
-      <main>{children}</main>
+      <main>
+        {children}
+        {/* Mobile spacer for bottom nav */}
+        <div className="sm:hidden" style={{ height: 'calc(4rem + env(safe-area-inset-bottom))' }} aria-hidden="true" />
+      </main>
 
-      {/* Footer */}
-      <footer className="border-t border-gray-100 bg-white mt-16">
+      {/* Desktop footer */}
+      <footer className="hidden sm:block border-t border-gray-100 bg-white mt-16">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2 text-gray-400">
             <Leaf className="w-4 h-4" />
@@ -103,6 +115,31 @@ export default function Layout({ children, currentPageName }) {
           <p className="text-xs text-gray-400">Making the planet greener, one swap at a time.</p>
         </div>
       </footer>
+
+      {/* Mobile bottom tab bar */}
+      <nav
+        className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-xl border-t border-gray-100"
+        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+      >
+        <div className="flex items-stretch">
+          {BOTTOM_NAV.map(({ name, page, icon: Icon }) => {
+            const isActive = currentPageName === page;
+            return (
+              <Link
+                key={page}
+                to={createPageUrl(page)}
+                className={`flex-1 flex flex-col items-center justify-center py-2.5 gap-0.5 transition-colors ${
+                  isActive ? 'text-[#1B4332]' : 'text-gray-400'
+                }`}
+              >
+                <Icon className="w-5 h-5" strokeWidth={isActive ? 2.5 : 2} />
+                <span className="text-[10px] font-semibold">{name}</span>
+                {isActive && <div className="w-1 h-1 rounded-full bg-[#1B4332]" />}
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
     </div>
   );
 }
