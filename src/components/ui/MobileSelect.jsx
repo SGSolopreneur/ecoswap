@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
 import { Check, ChevronDown } from 'lucide-react';
 
 function useIsMobile() {
-  const [isMobile, setIsMobile] = React.useState(() => window.innerWidth < 640);
-  React.useEffect(() => {
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 640);
+  useEffect(() => {
     const handler = () => setIsMobile(window.innerWidth < 640);
     window.addEventListener('resize', handler);
     return () => window.removeEventListener('resize', handler);
