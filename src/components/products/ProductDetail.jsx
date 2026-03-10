@@ -4,6 +4,7 @@ import { X, Heart, ExternalLink, Leaf, ArrowRightLeft, Award, Package } from 'lu
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import EcoScoreBadge from './EcoScoreBadge';
+import ShopeeButton from '@/components/shopee/ShopeeButton';
 
 export default function ProductDetail({ product, isFavorite, onToggleFavorite, onClose }) {
   if (!product) return null;
