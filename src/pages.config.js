@@ -52,8 +52,8 @@ import Calculator from './pages/Calculator';
 import Compare from './pages/Compare';
 import Favorites from './pages/Favorites';
 import Home from './pages/Home';
-import Swap from './pages/Swap';
 import Settings from './pages/Settings';
+import Swap from './pages/Swap';
 import __Layout from './Layout.jsx';
 
 
@@ -63,8 +63,8 @@ export const PAGES = {
     "Compare": Compare,
     "Favorites": Favorites,
     "Home": Home,
-    "Swap": Swap,
     "Settings": Settings,
+    "Swap": Swap,
 }
 
 export const pagesConfig = {

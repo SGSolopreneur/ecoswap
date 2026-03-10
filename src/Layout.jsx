@@ -174,6 +174,12 @@ export default function Layout({ children, currentPageName }) {
             <span className="text-sm">EcoSwap — Find sustainable alternatives</span>
           </div>
           <p className="text-xs text-gray-400">Making the planet greener, one swap at a time.</p>
+          <a
+            href="mailto:windstrafer@gmail.com?subject=EcoSwap Feedback"
+            className="text-xs text-[#2D6A4F] hover:underline mt-1 inline-block"
+          >
+            Contact Us / Feedback
+          </a>
         </div>
       </footer>
 

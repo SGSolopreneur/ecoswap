@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useQuery } from '@tanstack/react-query';
-import { Settings as SettingsIcon, Trash2, LogOut, User, ChevronRight, Leaf } from 'lucide-react';
+import { Settings as SettingsIcon, Trash2, LogOut, User, ChevronRight, Leaf, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Settings() {
