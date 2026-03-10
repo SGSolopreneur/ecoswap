@@ -7,6 +7,7 @@ import PrivacyPolicyModal from '@/components/PrivacyPolicyModal';
 
 export default function Settings() {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
   const { data: user } = useQuery({
