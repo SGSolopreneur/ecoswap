@@ -117,6 +117,11 @@ export default function ProductDetail({ product, isFavorite, onToggleFavorite, o
               </div>
             )}
 
+            {/* Reviews */}
+            <div className="border-t border-gray-100 pt-4">
+              <ReviewList productId={product.id} />
+            </div>
+
             {/* Actions */}
             <div className="flex gap-3 pt-2 flex-wrap">
               <Button
