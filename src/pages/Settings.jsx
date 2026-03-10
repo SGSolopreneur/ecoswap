@@ -59,6 +59,23 @@ export default function Settings() {
         </div>
       </div>
 
+      {/* Privacy Policy */}
+      <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden mb-4">
+        <button
+          onClick={() => setShowPrivacy(true)}
+          className="w-full flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors"
+        >
+          <div className="flex items-center gap-3">
+            <Shield className="w-5 h-5 text-[#2D6A4F]" />
+            <div className="text-left">
+              <span className="font-medium text-gray-700 block">Privacy & Data Policy</span>
+              <span className="text-xs text-gray-400">How we handle your data</span>
+            </div>
+          </div>
+          <ChevronRight className="w-4 h-4 text-gray-300" />
+        </button>
+      </div>
+
       {/* Contact / Feedback */}
       <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden mb-4">
         <a
