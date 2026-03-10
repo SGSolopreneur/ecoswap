@@ -117,19 +117,20 @@ export default function ProductDetail({ product, isFavorite, onToggleFavorite, o
             )}
 
             {/* Actions */}
-            <div className="flex gap-3 pt-2">
+            <div className="flex gap-3 pt-2 flex-wrap">
               <Button
                 onClick={() => onToggleFavorite(product.id)}
                 variant="outline"
-                className={`rounded-xl flex-1 ${isFavorite ? 'bg-red-50 border-red-200 text-red-600' : ''}`}
+                className={`rounded-xl flex-1 min-w-[100px] ${isFavorite ? 'bg-red-50 border-red-200 text-red-600' : ''}`}
               >
                 <Heart className={`w-4 h-4 mr-2 ${isFavorite ? 'fill-current' : ''}`} />
                 {isFavorite ? 'Saved' : 'Save'}
               </Button>
+              <ShopeeButton productName={product.name} />
               {product.buy_url && (
                 <Button
                   onClick={() => window.open(product.buy_url, '_blank')}
-                  className="rounded-xl flex-1 bg-[#1B4332] hover:bg-[#2D6A4F]"
+                  className="rounded-xl flex-1 min-w-[100px] bg-[#1B4332] hover:bg-[#2D6A4F]"
                 >
                   <ExternalLink className="w-4 h-4 mr-2" />
                   Where to Buy
