@@ -124,6 +124,8 @@ export default function Settings() {
         </button>
       </div>
 
+      <PrivacyPolicyModal open={showPrivacy} onClose={() => setShowPrivacy(false)} />
+
       {/* Delete confirmation modal */}
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-6">
