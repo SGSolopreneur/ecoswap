@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import EcoScoreBadge from './EcoScoreBadge';
 import ShopeeButton from '@/components/shopee/ShopeeButton';
+import ReviewList from './ReviewList';
 
 export default function ProductDetail({ product, isFavorite, onToggleFavorite, onClose }) {
   if (!product) return null;
